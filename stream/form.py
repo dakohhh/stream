@@ -1,3 +1,5 @@
+from .input import StreamHTMLInput
+
 class StreamHTMLForm:
     def __init__(self, action="", method="POST"):
         self.action = action

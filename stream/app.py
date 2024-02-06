@@ -1,14 +1,9 @@
 
-from enum import Enum
-from typing import Any, Callable, Dict, List, Optional, Sequence, Type, Union
-from typing_extensions import Annotated, Doc, deprecated
-from fastapi import FastAPI, Request, APIRouter
-from fastapi.datastructures import Default
-from fastapi.routing import APIRoute
-from fastapi.utils import generate_unique_id
-from starlette.responses import JSONResponse, Response
-from starlette.routing import BaseRoute
-from starlette.types import ASGIApp, Lifespan
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from .skeleton import StreamSkeleton
+from fastapi.templating import Jinja2Templates
+
 
 
 
@@ -17,11 +12,21 @@ class StreamApp(FastAPI):
     
         super().__init__(docs_url=None, redoc_url=None)
 
-        super().add_api_route("/", Response())
+        app = super()
 
+        skeleton = StreamSkeleton("The Machine Learning App")
+        skeleton.add_head_content('<meta charset="UTF-8">')
+        skeleton.add_head_content('<meta name="viewport" content="width=device-width, initial-scale=1.0">')
+        skeleton.add_body_content('<h1>Hello, World!</h1>')
+        skeleton.add_body_content('<p>This is a sample HTML page generated with a Python class.</p>')
 
-    def main(request:Request):
-            return {"homw": "H!"}
+        @app.get("/")
+
+        def main(request:Request):
+
+            return HTMLResponse(skeleton.generate_html())
+        
+
 
 
 
