@@ -6,7 +6,7 @@ from stream import Stream
 
 
 
-app = Stream()
+app = Stream("The Machine Learning App")
 
 
 # app.input("")

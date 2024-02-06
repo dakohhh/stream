@@ -3,16 +3,12 @@ import uvicorn
 
 from typing import Union
 from .app import StreamApp
-from .skeleton import skeleton
 
 
 
 class Stream:
     def __init__(self, title: Union[str, None] = None) -> None:
-        self.app = StreamApp()
-
-        self.skeleton = skeleton
-        skeleton.title = title
+        self.app = StreamApp(title)
          
 
     def start(self):
