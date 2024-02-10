@@ -6,15 +6,14 @@ class StreamHTMLForm:
         self.method = method
         self.fields = []
 
-    def add_field(self, label, name, input_type="text"):
-        field = {"label": label, "name": name, "type": input_type}
-        self.fields.append(field)
+    def add_field(self, input:StreamHTMLInput):
 
-    def generate_form(self):
+        self.fields.append(input.generate())
+
+    def generate(self):
         form_html = f'<form action="{self.action}" method="{self.method}">'
         for field in self.fields:
             form_html += f'<label>{field["label"]}:</label>'
-            form_html += f'<input type="{field["type"]}" name="{field["name"]}"><br>'
         form_html += '<input type="submit" value="Submit">'
         form_html += "</form>"
         return form_html
@@ -28,5 +27,5 @@ if __name__ == "__main__":
     my_form.add_field(label="Username", name="username")
     my_form.add_field(label="Password", name="password", input_type="password")
 
-    html_code = my_form.generate_form()
+    html_code = my_form.generate()
     print(html_code)
